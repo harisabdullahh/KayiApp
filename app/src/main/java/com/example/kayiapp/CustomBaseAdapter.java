@@ -45,7 +45,7 @@ public class CustomBaseAdapter extends BaseAdapter {
         TextView txtView2 = (TextView) convertView.findViewById(R.id.epDescription);
         ImageView fruitImg = (ImageView) convertView.findViewById(R.id.epImage);
         txtView.setText(listFruit[position]);
-        txtView2.setText(listEpDescription[position]);
+        //txtView2.setText(listEpDescription[position]);
         fruitImg.setImageResource(listImages[0]);
         return convertView;
     }

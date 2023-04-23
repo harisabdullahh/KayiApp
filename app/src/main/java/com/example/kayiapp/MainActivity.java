@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
     Menu menuObj = new Menu();
 
-    String episodeDescription[] = {
+    public String episodeDescription[] = {
             "Dündar Bey, substitute Bey of the Kayı tribe, seeks peace with the Tekfur of Kulucahisar Castle, Yorgopolos, who is killed on the same day by his evil wife Sofia. The blame is pinned on Dündar's nephew, Osman Bey. Meanwhile, Bala, the daughter of Turkish Sheikh, Edebali, also attempts to recover some \"entrustments\" for her father.",
             "Bala finds the entrustments, however, Osman captures Bala while attempting to find Yorgopolos' killer and suspects her of killing him. Bala takes Osman to her father and Osman allies with Edebali and his organization, the Ahi brotherhood, against Sofia and her father, Yannis' evil organization, the \"Margarit Monks\". Sofia orders Theokles, her veteran warrior, to kill Osman.\n",
             "In Theokles' ambush, Osman captures Theokles, only to be set free by Dündar's son, Batur. Theokles is later killed. Osman falls in love with Bala while Sofia, in search of the entrustments, enlists Prince Salvador to invade the Ahi bazaar. Bala is kidnapped due to this by him.\n",

@@ -11,9 +11,12 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -38,16 +41,13 @@ public class Menu extends AppCompatActivity {
                 s2 = sh.getString("Image", "NUll"),
                 url = sh.getString("Link","NULL");
 
-        int pos = Integer.valueOf(sh.getString("position","0"));
-        int dur = Integer.valueOf(sh.getString("MaxDuration", "100"));
-
         CardView cv1 = (CardView) findViewById(R.id.ErtugrulCard);
         CardView cv2 = (CardView) findViewById(R.id.OsmanCard);
         LinearLayout l1 = (LinearLayout) findViewById(R.id.continueLinear);
         TextView t1 = (TextView) findViewById(R.id.epTitle);
         TextView t2 = (TextView) findViewById(R.id.epNameMenu);
         ImageView continueText = (ImageView) findViewById(R.id.continueText);
-        Button btn = (Button) findViewById(R.id.testBtn);
+        ImageButton btn = (ImageButton) findViewById(R.id.testBtn);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,8 +63,20 @@ public class Menu extends AppCompatActivity {
 
         ImageView image1 = (ImageView) findViewById(R.id.epImageMenu);
 
-        //set progress of current Episode
-        setProgress(dur, pos);
+
+
+        //delaying getting the value of progress of continue watching episode because of delay in episode data saving in PlayerActivity.java;
+        final Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                int pos = Integer.valueOf(sh.getString(s1+"position","0"));     //Sample: (45position)
+                int dur = Integer.valueOf(sh.getString("MaxDuration", "100"));
+
+                //set progress of current Episode setProgress(int dur, int pos)
+                setProgress(dur, pos);
+            }
+        }, 2000);
 
         //set Image & Title of Episode
         if(s2=="1") {

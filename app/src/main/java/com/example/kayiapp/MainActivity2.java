@@ -44,7 +44,7 @@ public class MainActivity2 extends AppCompatActivity {
 
     Menu menuObj = new Menu();
 
-    String episodeDescription[] = {
+    public String episodeDescription[] = {
             "The poverty-stricken Kayı search for a new home. Meanwhile, Ertuğrul saves a family of Selçuk royals from the Templars and brings them to the camp. Matters are therefore worsened for the Kayı, many of whom oppose the new arrivals. Kara Toygar threatens the Kayi camp when Suleyman Shah refuses to turn over the prisoners. Titus learns the excruciating truth about his brother. In the search for a new camp, Suleyman sends Ertugrul to Aleppo and fuels fraternal jealously. Kurdogu makes a deal with Kara Toygar.\n",
             "On the way to Aleppo, a dangerous enemy crosses paths with Ertugrul. Halime and her family come under attack. Fate hands Titus a golden chance for revenge, but the timing is not right. Selcan conspires with Gokce to boost their status in the family. A premonition saves Ertugrul's life as Titus raises the stakes against him. Ustadi Azam turns up the heat on his rivals.\n",
             "Suleyman's prayers are answered, but Gundodgu's life hangs by a thread. Kurdoglu puts another plan into action. A mysterious messenger puts a damper on the Kayi tribe's festivities. Suleyman presses Halime's father about his true identity. Sensing imminent danger, Sehzade Numan asks Suleyman for a favor. Suleyman shows Kara Toygar that he has the upper hand - but not for long.\n",

@@ -48,6 +48,8 @@ public class PlayerActivity extends AppCompatActivity {
             homePressed = false;
 
     Menu menuObj = new Menu();
+    MainActivity mainObj = new MainActivity();
+    MainActivity2 main2Obj = new MainActivity2();
 
     private View decorView;
 
@@ -101,7 +103,7 @@ public class PlayerActivity extends AppCompatActivity {
         String
                 s1 = sh.getString("Episode", "NULL"),        //Episode Number (1,2...n)
                 s2 = sh.getString("Image", "NUll"),          //Series Name ("Osman" & "Ertugrul")
-                positionEpisode = sh.getString(POSITION,"0"),   //Position of Episode
+                positionEpisode = sh.getString(/*POSITION*/s1+"position","0"),   //Position of Episode
                 url = sh.getString("Link","NULL");           //Episode "key" (this is not full url)
 
         episode = s1;
@@ -164,11 +166,13 @@ public class PlayerActivity extends AppCompatActivity {
             public void run() {
                 pos = String.valueOf(player.getCurrentPosition());
                 handler.postDelayed(this, 2000); //2000ms frequency of updates.
-                saveData(); //saves position and duration in SharedPreferences("info")
+                //saveData(); //saves position and duration in SharedPreferences("info")
 
                 if(!stillPlaying) {
                     player.stop();
                     player.release();
+                    saveData(); //saves position and duration in SharedPreferences("info")
+                    stillPlaying = true;
                 }
                 if(homePressed == true){
                    player.pause();
@@ -190,10 +194,15 @@ public class PlayerActivity extends AppCompatActivity {
     public void saveData(){
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        editor.putString(POSITION, pos);
-        //Toast.makeText(getApplicationContext(), POSITION+episode, Toast.LENGTH_SHORT).show();
+        editor.putString(/*POSITION*/episode+"position", pos);
         editor.putString(DURATION, maxDur);
         editor.commit();
+    }
+
+    public void nextEpisode(){
+        long next = (Integer.valueOf(pos)/Integer.valueOf(maxDur))*100;
+        if(next>98.4){
+
+        }
     }
 }

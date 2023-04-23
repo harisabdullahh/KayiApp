@@ -10,10 +10,12 @@
 
     <com.google.android.exoplayer2.ui.StyledPlayerView
         android:id="@+id/playerView2"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
         app:surface_type="surface_view"
-        android:layout_height="match_parent"
         app:scrubber_color="#FF0000"
+        app:buffered_color="#FF0000"
+        app:played_color="#FF0000"
         app:show_buffering="when_playing"
         app:show_shuffle_button="false"/>
 
