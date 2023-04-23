@@ -1,0 +1,10 @@
+Changelog:
+
+16/04/2023 (v2.1):
+    1. Added Progress bar support on homepage
+    2. Added Image support(buggy) on homepage
+
+20/04/2023 (v2.1.1):
+    1. Implemented cardView of shows instead of textButtons
+    2. Implemented exoplayer pausing when back button is pressed
+    3. Implemented saving of exoplayer position every 2 seconds

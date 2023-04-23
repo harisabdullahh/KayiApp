@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".MainActivity">
+
+    <com.emilsjolander.components.StickyScrollViewItems.StickyScrollView
+        android:id="@+id/mainLinear"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            android:orientation="vertical">
+
+
+            <!--Introduction Start-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@color/black"
+                    app:cardCornerRadius="12dp">
+
+                    <ImageView
+                        android:id="@+id/BackImg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/banner3" />
+
+                </androidx.cardview.widget.CardView>
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#E6000000"
+                android:tag="sticky">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="11dp"
+                    android:padding="5dp"
+                    android:text="Diriliş: Ertuğrul"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="29sp"
+                    android:textStyle="bold"
+                    android:translationZ="3dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:fontFamily="@font/nunito_extralight"
+                    android:text="2014   5 Seasons"
+                    android:textColor="@color/grey"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/nunito_extralight"
+                    android:text="Ertugrul, the son of Suleman Shah, struggles against enemies of Islam. Sowing the seeds for his son, Osman, to give rise to the Ottoman Empire."
+                    android:textColor="@color/light_grey"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="20dp"
+                        android:layout_height="1dp"
+                        android:background="@color/dark_grey" />
+
+                    <View
+                        android:layout_width="110dp"
+                        android:layout_height="3dp"
+                        android:background="@color/design_default_color_error" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/dark_grey" />
+
+
+                    <!--Introduction End-->
+
+
+                </LinearLayout>
+
+
+                <!--Episode Header Text-->
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Episodes"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+            <!--Scrollable Episode List Start-->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:nestedScrollingEnabled="false">
+
+                <ListView
+                    android:id="@+id/customListView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="28700dp"
+                    android:descendantFocusability="blocksDescendants"/>
+
+            </RelativeLayout>
+
+
+            <!--Scrollable Episode List End-->
+
+
+        </LinearLayout>
+
+    </com.emilsjolander.components.StickyScrollViewItems.StickyScrollView>
+
+</RelativeLayout>

@@ -1,0 +1,54 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    signingConfigs {
+        release {
+            storeFile file('D:\\Android Studio Projects\\keystores\\keyrelease.jks')
+            storePassword 'Abcd.1234'
+            keyAlias 'keyKayi'
+            keyPassword 'Abcd.1234'
+        }
+    }
+    compileSdk 32
+
+    defaultConfig {
+        applicationId "com.example.kayiapp"
+        minSdk 26
+        targetSdk 32
+        versionCode 1
+        versionName "2.2"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.release
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            debuggable false
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        viewBinding true
+    }
+    namespace 'com.example.kayiapp'
+}
+
+dependencies {
+    implementation 'com.google.android.exoplayer:exoplayer:2.18.1'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.6.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.navigation:navigation-fragment:2.4.2'
+    implementation 'androidx.navigation:navigation-ui:2.4.2'
+    releaseImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation 'se.emilsjolander:StickyScrollViewItems:1.1.0'
+}
