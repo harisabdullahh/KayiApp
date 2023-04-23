@@ -23,6 +23,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.exoplayer2.util.Log;
+
 import org.w3c.dom.Text;
 
 import java.net.URI;
@@ -30,16 +32,24 @@ import java.net.URI;
 public class Menu extends AppCompatActivity {
 
     public boolean active;
+
+    String
+            s1,
+            s2,
+            url;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
         @SuppressLint("WrongConstant") SharedPreferences sh = getSharedPreferences("info", MODE_APPEND);
-        String
-                s1 = sh.getString("Episode", "NULL"),
-                s2 = sh.getString("Image", "NUll"),
-                url = sh.getString("Link","NULL");
+
+        s1 = sh.getString("Episode", "NULL");
+        s2 = sh.getString("Image", "NUll");
+        url = sh.getString("Link","NULL");
 
         CardView cv1 = (CardView) findViewById(R.id.ErtugrulCard);
         CardView cv2 = (CardView) findViewById(R.id.OsmanCard);
@@ -70,7 +80,7 @@ public class Menu extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                int pos = Integer.valueOf(sh.getString(s1+"position","0"));     //Sample: (45position)
+                int pos = Integer.valueOf(sh.getString(s2+s1+"position","0"));     //Sample: (45position)
                 int dur = Integer.valueOf(sh.getString("MaxDuration", "100"));
 
                 //set progress of current Episode setProgress(int dur, int pos)
@@ -129,14 +139,12 @@ public class Menu extends AppCompatActivity {
     void downloadFile(Uri uri) {
 
         DownloadManager downloadManager = (DownloadManager) getApplicationContext().getSystemService(Context.DOWNLOAD_SERVICE);
-
         DownloadManager.Request request = new DownloadManager.Request(uri);
 
         request.setTitle("Downloading App");
         request.setDescription("");
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,"Kayi.apk");
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-
 
         Long reference = downloadManager.enqueue(request);
     }
@@ -198,5 +206,24 @@ public class Menu extends AppCompatActivity {
 
         pBar.setMax(dur);
         pBar.setProgress(pos);
+
+        if(dur-pos<123000){
+            int ep = Integer.parseInt(s1)+1;
+            //Toast.makeText(this, "inside nextep "+String.valueOf(ep)+" "+(dur-pos), Toast.LENGTH_SHORT).show();
+            //dur=MainActivity.episodeLink[ep];
+            SharedPreferences sharedPreferences = getSharedPreferences("info", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("Link",MainActivity.episodeLink[ep]);
+            editor.putString("Episode",String.valueOf(ep));
+            editor.commit();
+            TextView t1 = (TextView) findViewById(R.id.epTitle);
+            t1.setText(" Episode "+ep);
+            @SuppressLint("WrongConstant") SharedPreferences sh = getSharedPreferences("info", MODE_APPEND);
+
+            int a = Integer.valueOf(sh.getString(s2+ep+"position","0"));
+            pBar.setMax(Integer.valueOf(sh.getString("MaxDuration", "125000")));
+            pBar.setProgress(a);
+            Toast.makeText(this, String.valueOf(a), Toast.LENGTH_SHORT).show();
+        }
     }
 }

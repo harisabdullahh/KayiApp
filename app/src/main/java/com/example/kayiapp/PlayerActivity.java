@@ -39,7 +39,8 @@ public class PlayerActivity extends AppCompatActivity {
     String
             pos,
             maxDur,
-            episode;
+            episode,
+            series;
 
     public StyledPlayerView playerView;
 
@@ -103,10 +104,10 @@ public class PlayerActivity extends AppCompatActivity {
         String
                 s1 = sh.getString("Episode", "NULL"),        //Episode Number (1,2...n)
                 s2 = sh.getString("Image", "NUll"),          //Series Name ("Osman" & "Ertugrul")
-                positionEpisode = sh.getString(/*POSITION*/s1+"position","0"),   //Position of Episode
+                positionEpisode = sh.getString(/*POSITION*/s2+s1+"position","0"),   //Position of Episode
                 url = sh.getString("Link","NULL");           //Episode "key" (this is not full url)
-
         episode = s1;
+        series = s2;
 
         int
                 dur = Integer.valueOf(sh.getString("duration", "100"));
@@ -194,15 +195,8 @@ public class PlayerActivity extends AppCompatActivity {
     public void saveData(){
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(/*POSITION*/episode+"position", pos);
+        editor.putString(/*POSITION*/series+episode+"position", pos);
         editor.putString(DURATION, maxDur);
         editor.commit();
-    }
-
-    public void nextEpisode(){
-        long next = (Integer.valueOf(pos)/Integer.valueOf(maxDur))*100;
-        if(next>98.4){
-
-        }
     }
 }
