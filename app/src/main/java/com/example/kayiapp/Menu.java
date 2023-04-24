@@ -18,11 +18,13 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,7 +43,8 @@ public class Menu extends AppCompatActivity {
     String
             s1,
             s2,
-            url;
+            url,
+            quality;
 
 
 
@@ -52,9 +55,10 @@ public class Menu extends AppCompatActivity {
 
         @SuppressLint("WrongConstant") SharedPreferences sh = getSharedPreferences("info", MODE_APPEND);
 
-        s1 = sh.getString("Episode", "NULL");   //Episode Number (1,2...n)
-        s2 = sh.getString("Image", "NUll");     //Series Name (Osman = 2 & Ertugrul = 1)
-        url = sh.getString("Link","NULL");      //Episode "key" (this is not full url)
+        s1 = sh.getString("Episode", "NULL");       //Episode Number (1,2...n)
+        s2 = sh.getString("Image", "NUll");         //Series Name (Osman = 2 & Ertugrul = 1)
+        url = sh.getString("Link","NULL");          //Episode "key" (this is not full url)
+        quality = sh.getString("Quality", "480");   //Quality (480,720,1080)
 
 
         CardView cv1 = (CardView) findViewById(R.id.ErtugrulCard);
@@ -109,7 +113,7 @@ public class Menu extends AppCompatActivity {
         t1.setText(" Episode "+s1);
 
         //Check if there is any episode was previously played and hide/unhide "Continue Watching" accordingly
-        if(s1=="NULL") {
+        if(s1.equals("NULL")) {
             continueText.setVisibility(View.GONE);
             l1.setVisibility(View.GONE);
         }
@@ -119,10 +123,42 @@ public class Menu extends AppCompatActivity {
                 public void onClick(View view) {
                     int epNum = Integer.valueOf(s1);
                     //CallPlayer(url,"Episode "+epNum, epNum);
-                    active = false;
+                    PopupMenu popup = new PopupMenu(Menu.this, view);
+                    popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
+
                     Intent intent = new Intent(getApplicationContext(), PlayerActivity.class);
-                    startActivity(intent);
-                    finish();
+                    SharedPreferences sharedPreferences = getSharedPreferences("info", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()) {
+                                case R.id.sd:
+                                    active = false;
+                                    editor.putString("Quality","480");
+                                    startActivity(intent);
+                                    finish();
+                                    return true;
+                                case R.id.hd:
+                                    active = false;
+                                    editor.putString("Quality","720");
+                                    startActivity(intent);
+                                    finish();
+                                    return true;
+                                case R.id.fhd:
+                                    active = false;
+                                    editor.putString("Quality","1080");
+                                    startActivity(intent);
+                                    finish();
+                                    return true;
+                                default:
+                                    return false;
+                            }
+                        }
+                    });
+                    // show menu
+                    popup.show();
                 }
             });
         }
@@ -140,10 +176,6 @@ public class Menu extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
-
-    private void initViews(){
-
     }
 
     void downloadFile(Uri uri) {

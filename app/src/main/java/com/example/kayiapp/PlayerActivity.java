@@ -47,11 +47,6 @@ public class PlayerActivity extends AppCompatActivity {
     boolean
             stillPlaying = false,
             homePressed = false;
-
-    Menu menuObj = new Menu();
-    MainActivity mainObj = new MainActivity();
-    MainActivity2 main2Obj = new MainActivity2();
-
     private View decorView;
 
     @Override
@@ -105,25 +100,22 @@ public class PlayerActivity extends AppCompatActivity {
                 s1 = sh.getString("Episode", "NULL"),        //Episode Number (1,2...n)
                 s2 = sh.getString("Image", "NUll"),          //Series Name (Osman = 2 & Ertugrul = 1)
                 positionEpisode = sh.getString(/*POSITION*/s2+s1+"position","0"),   //Position of Episode
-                url = sh.getString("Link","NULL");           //Episode "key" (this is not full url)
+                url = sh.getString("Link","NULL"),           //Episode "key" (this is not full url)
+                quality = sh.getString("Quality", "480");
         episode = s1;
         series = s2;
 
-        int
-                dur = Integer.valueOf(sh.getString("duration", "100"));
-
-
+        int dur = Integer.valueOf(sh.getString("duration", "100"));
 
         //initialize Player then send url and position of episode to player
-        initializePlayer(url, positionEpisode);
-
+        initializePlayer(url, positionEpisode, quality);
     }
 
     public void onDestroy(){
         super.onDestroy();
     }
 
-    public void initializePlayer(String url, String positionEpisode){
+    public void initializePlayer(String url, String positionEpisode, String quality){
 
         stillPlaying = true;
         homePressed = false;
@@ -131,7 +123,7 @@ public class PlayerActivity extends AppCompatActivity {
         ExoPlayer player = new ExoPlayer.Builder(this).build();
         playerView.setPlayer(player);
         MediaItem mediaItem = new MediaItem.Builder()
-                .setUri(Uri.parse("https://maher.xtremestream.co/player/load_m3u8_xtremestream.php?data="+url))
+                .setUri(Uri.parse("https://maher.xtremestream.co/player/load_m3u8_xtremestream.php?data="+url+ "&q=" + quality))
                 .setMimeType(MimeTypes.APPLICATION_M3U8)
                 .build();
         player.setMediaItem(mediaItem);
@@ -176,7 +168,7 @@ public class PlayerActivity extends AppCompatActivity {
                     stillPlaying = true;
                 }
                 if(homePressed == true){
-                   player.pause();
+                    player.pause();
                 }
             }
         }, 2000);

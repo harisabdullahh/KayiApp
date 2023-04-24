@@ -371,17 +371,58 @@ public class MainActivity2 extends AppCompatActivity {
                 //save ertugrul episode info for player to get episode number, series name, link
                 SharedPreferences sharedPreferences = getSharedPreferences("info", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("Episode", String.valueOf(epNum));
-                editor.putString("Image", "1");
-                editor.putString("Link", episodeLink[i]);
-                editor.commit();
 
-                menuObj.active = true;
+                PopupMenu popup = new PopupMenu(MainActivity2.this, view);
+                popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
 
-                //exit this activity and go to player
-                finish();
-                Intent intent = new Intent(getApplicationContext(), PlayerActivity.class);
-                startActivity(intent);
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.sd:
+                                //save osman episode info for player to get episode number, series name, link, quality
+                                editor.putString("Quality","480");
+                                editor.putString("Episode", String.valueOf(epNum));
+                                editor.putString("Image", "1");                     //Osman
+                                editor.putString("Link", episodeLink[i]);
+                                editor.commit();menuObj.active = true;
+
+                                //exit this activity and go to player
+                                finish();
+                                Intent intent3 = new Intent(getApplicationContext(), PlayerActivity.class);
+                                startActivity(intent3);
+                                return true;
+                            case R.id.hd:
+                                editor.putString("Quality","720");
+                                editor.putString("Episode", String.valueOf(epNum));
+                                editor.putString("Image", "1");                     //Osman
+                                editor.putString("Link", episodeLink[i]);
+                                editor.commit();menuObj.active = true;
+
+                                //exit this activity and go to player
+                                finish();
+                                Intent intent2 = new Intent(getApplicationContext(), PlayerActivity.class);
+                                startActivity(intent2);
+                                return true;
+                            case R.id.fhd:
+                                editor.putString("Quality","1080");
+                                editor.putString("Episode", String.valueOf(epNum));
+                                editor.putString("Image", "1");                     //Osman
+                                editor.putString("Link", episodeLink[i]);
+                                editor.commit();menuObj.active = true;
+
+                                //exit this activity and go to player
+                                finish();
+                                Intent intent = new Intent(getApplicationContext(), PlayerActivity.class);
+                                startActivity(intent);
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                });
+                // show menu
+                popup.show();
             }
         });
         //updateEpisodeProgress();
