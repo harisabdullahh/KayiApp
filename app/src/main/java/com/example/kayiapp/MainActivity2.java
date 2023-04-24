@@ -196,7 +196,7 @@ public class MainActivity2 extends AppCompatActivity {
             "",
             ""};
 
-    String episodeLink[] = {
+    public static String episodeLink[] = {
             "d09bf41544a3365a46c9077ebb5e35c3",
             "da4fb5c6e93e74d3df8527599fa62642",
             "9b8619251a19057cff70779273e95aa6",

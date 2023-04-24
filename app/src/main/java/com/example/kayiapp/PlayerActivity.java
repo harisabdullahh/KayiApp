@@ -103,7 +103,7 @@ public class PlayerActivity extends AppCompatActivity {
 
         String
                 s1 = sh.getString("Episode", "NULL"),        //Episode Number (1,2...n)
-                s2 = sh.getString("Image", "NUll"),          //Series Name ("Osman" & "Ertugrul")
+                s2 = sh.getString("Image", "NUll"),          //Series Name (Osman = 2 & Ertugrul = 1)
                 positionEpisode = sh.getString(/*POSITION*/s2+s1+"position","0"),   //Position of Episode
                 url = sh.getString("Link","NULL");           //Episode "key" (this is not full url)
         episode = s1;
