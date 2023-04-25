@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
             "",
             ""};
 
-    public static String episodeLink[] = {
+    public static String[] episodeLink = {
             "be83ab3ecd0db773eb2dc1b0a17836a1",
             "cb70ab375662576bd1ac5aaf16b3fca4",
             "c24cd76e1ce41366a4bbe8a49b02a028",
@@ -301,70 +301,64 @@ public class MainActivity extends AppCompatActivity {
         CustomBaseAdapter customerBaseAdapter = new CustomBaseAdapter(getApplicationContext(), fruitList, fruitImages, episodeDescription);
         listView.setAdapter(customerBaseAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        listView.setOnItemClickListener((adapterView, view, i, l) -> {
 
-                SharedPreferences sharedPreferences = getSharedPreferences("info", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
+            SharedPreferences sharedPreferences = getSharedPreferences("info", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                int epNum = i+1;
+            int epNum = i+1;
 
-                PopupMenu popup = new PopupMenu(MainActivity.this, view);
-                popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
+            PopupMenu popup = new PopupMenu(MainActivity.this, view);
+            popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
 
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.sd:
-                                //save osman episode info for player to get episode number, series name, link, quality
-                                editor.putString("Quality","480");
-                                editor.putString("Episode", String.valueOf(epNum));
-                                editor.putString("Image", "2");                     //Osman
-                                editor.putString("Link", episodeLink[i]);
-                                editor.commit();
-                                menuObj.active = true;
+            popup.setOnMenuItemClickListener(item -> {
+                switch (item.getItemId()) {
+                    case R.id.sd:
+                        //save osman episode info for player to get episode number, series name, link, quality
+                        editor.putString("Quality","480");
+                        editor.putString("Episode", String.valueOf(epNum));
+                        editor.putString("Image", "2");                     //Osman
+                        editor.putString("Link", episodeLink[i]);
+                        editor.commit();
+                        menuObj.active = true;
 
-                                //exit this activity and go to player
-                                finish();
-                                Intent intent = new Intent(getApplicationContext(), PlayerActivity.class);
-                                startActivity(intent);
-                                return true;
-                            case R.id.hd:
-                                editor.putString("Quality","720");
-                                editor.putString("Episode", String.valueOf(epNum));
-                                editor.putString("Image", "2");                     //Osman
-                                editor.putString("Link", episodeLink[i]);
-                                editor.commit();
-                                menuObj.active = true;
+                        //exit this activity and go to player
+                        finish();
+                        Intent intent = new Intent(getApplicationContext(), PlayerActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.hd:
+                        editor.putString("Quality","720");
+                        editor.putString("Episode", String.valueOf(epNum));
+                        editor.putString("Image", "2");                     //Osman
+                        editor.putString("Link", episodeLink[i]);
+                        editor.commit();
+                        menuObj.active = true;
 
-                                //exit this activity and go to player
-                                finish();
-                                Intent intent3 = new Intent(getApplicationContext(), PlayerActivity.class);
-                                startActivity(intent3);
-                                return true;
-                            case R.id.fhd:
-                                editor.putString("Quality","1080");
-                                editor.putString("Episode", String.valueOf(epNum));
-                                editor.putString("Image", "2");                     //Osman
-                                editor.putString("Link", episodeLink[i]);
-                                editor.commit();
-                                menuObj.active = true;
+                        //exit this activity and go to player
+                        finish();
+                        Intent intent3 = new Intent(getApplicationContext(), PlayerActivity.class);
+                        startActivity(intent3);
+                        return true;
+                    case R.id.fhd:
+                        editor.putString("Quality","1080");
+                        editor.putString("Episode", String.valueOf(epNum));
+                        editor.putString("Image", "2");                     //Osman
+                        editor.putString("Link", episodeLink[i]);
+                        editor.commit();
+                        menuObj.active = true;
 
-                                //exit this activity and go to player
-                                finish();
-                                Intent intent2 = new Intent(getApplicationContext(), PlayerActivity.class);
-                                startActivity(intent2);
-                                return true;
-                            default:
-                                return false;
-                        }
-                    }
-                });
-                // show menu
-                popup.show();
-            }
+                        //exit this activity and go to player
+                        finish();
+                        Intent intent2 = new Intent(getApplicationContext(), PlayerActivity.class);
+                        startActivity(intent2);
+                        return true;
+                    default:
+                        return false;
+                }
+            });
+            // show menu
+            popup.show();
         });
         //updateEpisodeProgress();
 
