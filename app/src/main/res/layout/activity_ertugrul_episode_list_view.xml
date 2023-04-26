@@ -45,7 +45,7 @@
                 android:layout_marginStart="15dp">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="wrap_content"
@@ -65,11 +65,10 @@
                         android:textSize="18sp"
                         android:textStyle="bold" />
                 </LinearLayout>
-
             </RelativeLayout>
         </LinearLayout>
 
-        <ProgressBar
+        <!--<ProgressBar
             android:id="@+id/epProgress"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="150dp"
@@ -86,7 +85,7 @@
             android:textColor="@color/light_grey"
             android:textSize="13sp"
             android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"/>
+            android:layout_marginEnd="15dp"/>-->
 
     </LinearLayout>
 

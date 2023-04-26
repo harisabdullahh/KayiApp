@@ -48,6 +48,7 @@ public class Menu extends AppCompatActivity {
             POSITION = "position",
             ERTUGRUL = "1",
             OSMAN = "2",
+            ABDULHAMID = "3",
             QUALITY = "Quality";
     public boolean active;
 
@@ -75,6 +76,7 @@ public class Menu extends AppCompatActivity {
         //Initialize Views
         CardView ertugrulCard = (CardView) findViewById(R.id.ErtugrulCard);
         CardView osmanCard = (CardView) findViewById(R.id.OsmanCard);
+        CardView abdulhamidCard = (CardView) findViewById(R.id.AbdulHamidCard);
         LinearLayout continueWatching = (LinearLayout) findViewById(R.id.continueWatching);
         TextView t1 = (TextView) findViewById(R.id.epTitle);
         TextView t2 = (TextView) findViewById(R.id.epNameMenu);
@@ -105,8 +107,12 @@ public class Menu extends AppCompatActivity {
             t2.setText("Ertugrul");
         }
         else if(seriesName.equals(OSMAN)) {
-            image1.setImageResource(R.drawable.osman_img1);
+            image1.setImageResource(R.drawable.osman_img3);
             t2.setText("Osman");
+        }
+        else if(seriesName.equals(ABDULHAMID)){
+            image1.setImageResource(R.drawable.abdulhamid_img1);
+            t2.setText("Abdul Hamid");
         }
 
         //set Episode number
@@ -167,6 +173,10 @@ public class Menu extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
         });
+        abdulhamidCard.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), MainActivity3.class);
+            startActivity(intent);
+        });
     }
 
     void downloadFile(Uri uri) {
@@ -207,13 +217,20 @@ public class Menu extends AppCompatActivity {
 
         if(episodeLeft<123000 && episodeLeft!=100){
 
-            if(!episodeNumber.equals(NULLVALUE)) ep = Integer.parseInt(episodeNumber)+1;
+            if(!episodeNumber.equals(NULLVALUE))
+                ep = Integer.parseInt(episodeNumber)+1;
 
             SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
-            if(seriesName.equals(ERTUGRUL)) editor.putString(LINK,MainActivity2.episodeLink[ep]);
-            else if(seriesName.equals(OSMAN)) editor.putString(LINK,MainActivity.episodeLink[ep]);
+            if(seriesName.equals(ERTUGRUL))
+                editor.putString(LINK,MainActivity2.episodeLink[ep-1]);
+
+            else if(seriesName.equals(OSMAN))
+                editor.putString(LINK,MainActivity.episodeLink[ep-1]);
+
+            else if(seriesName.equals(ABDULHAMID))
+                editor.putString(LINK,MainActivity3.episodeLink[ep-1]);
 
             editor.putString(EPISODE,String.valueOf(ep));
             editor.apply();

@@ -42,7 +42,7 @@ public class CustomBaseAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = inflater.inflate(R.layout.activity_episode_list_view,null);
         TextView txtView = (TextView) convertView.findViewById(R.id.epTitle);
-        TextView txtView2 = (TextView) convertView.findViewById(R.id.epDescription);
+        //TextView txtView2 = (TextView) convertView.findViewById(R.id.epDescription);
         ImageView fruitImg = (ImageView) convertView.findViewById(R.id.epImage);
         txtView.setText(listFruit[position]);
         //txtView2.setText(listEpDescription[position]);
