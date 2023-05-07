@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     String title;
 
-    String fruitList[] = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122"};
+    String fruitList[] = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124"};
     int fruitImages [] = {R.drawable.osman_img3};
 
     Menu menuObj = new Menu();
@@ -109,6 +109,8 @@ public class MainActivity extends AppCompatActivity {
             "After Osman lures Togay from custody into a trap, he captures and beheads him in Söğüt. The abduction and execution of Togay angers the Governor Yargucu, who subsequently demands Kayı Tribe pay a three-year tax within three days. Yargucu also forms an alliance with Nikola. Later, Malhun Hatun reveals to Osman that she is pregnant and Göktuğ's lover Zoe is revealed to be serving Nik\n",
             "Osman Bey takes action to prepare for a war he will wage against the Byzantine army led by a commander named Dukas. Osman goes to Konya to meet with the Seljuk sultan, whilst Governor Yargucu, plans a move against Osman Bey. Increasing his power with the arrival of Commander Dukas in İnegöl with his army, Nikola thinks that he has the opportunity he is looking for to drive the Turks out of the edge. Bala Hatun, who learns that Osman Bey will have a child, tries to control her feelings and takes a step towards Malhun Hatun. Osman Bey, on the other hand, goes to battle with Dukas' Byzantine a\n",
             "Before the battle, Osman raids the Byzantines and seizes ammunition, before going to battle with the support of Turkmen and Seljuk forces. During the battle, Dukas and local Tekfurs are killed by Osman's forces, with Nikola and Helen escaping alive, and Turhan Alp being martyred. Meanwhile, Zoe tries to poison the pregnant Malhun Hatun but is caught and arrested. After the battle, Osman's son Orhan is born, whilst Bala reveals to Osman that she is pregnant and Osman decides to establish a state after visiting the Aksakals.\n",
+            "",
+            "",
             "",
             "",
             "",
@@ -290,7 +292,9 @@ public class MainActivity extends AppCompatActivity {
             "da8ce53cf0240070ce6c69c48cd588ee",
             "82489c9737cc245530c7a6ebef3753ec",
             "7c590f01490190db0ed02a5070e20f01",
-            "35cf8659cfcb13224cbd47863a34fc58"
+            "35cf8659cfcb13224cbd47863a34fc58",
+            "beb22fb694d513edcf5533cf006dfeae",
+            "f0adc8838f4bdedde4ec2cfad0515589"
     };
     ListView listView;
 

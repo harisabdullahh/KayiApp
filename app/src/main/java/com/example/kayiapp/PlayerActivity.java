@@ -1,32 +1,21 @@
 package com.example.kayiapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.session.MediaController;
+import android.media.session.MediaSession;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.Player;
-import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
-import com.google.android.exoplayer2.extractor.ExtractorsFactory;
-import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
-import com.google.android.exoplayer2.trackselection.TrackSelector;
-import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.ui.StyledPlayerView;
-import com.google.android.exoplayer2.upstream.BandwidthMeter;
-import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
-import com.google.android.exoplayer2.util.Log;
 import com.google.android.exoplayer2.util.MimeTypes;
 
 public class PlayerActivity extends AppCompatActivity {
@@ -47,7 +36,11 @@ public class PlayerActivity extends AppCompatActivity {
     boolean
             stillPlaying = false,
             homePressed = false;
+
     private View decorView;
+
+    private MediaSession mMediaSession;
+    private MediaController mMediaController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +66,11 @@ public class PlayerActivity extends AppCompatActivity {
         if (hasFocus){
             decorView.setSystemUiVisibility(hideSystemBars());
         }
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+        super.onPointerCaptureChanged(hasCapture);
     }
 
     private int hideSystemBars(){
@@ -111,6 +109,12 @@ public class PlayerActivity extends AppCompatActivity {
         initializePlayer(url, positionEpisode, quality);
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        // Add your onStop logic here
+    }
+
     public void onDestroy(){
         super.onDestroy();
     }
@@ -130,8 +134,6 @@ public class PlayerActivity extends AppCompatActivity {
         player.prepare();
         player.setPlayWhenReady(true);
         player.seekTo(Long.parseLong(positionEpisode));
-
-
 
         if(player.getPlaybackState()==Player.STATE_ENDED){
             Toast.makeText(this, "Ended", Toast.LENGTH_SHORT).show();
@@ -158,20 +160,30 @@ public class PlayerActivity extends AppCompatActivity {
             @Override
             public void run() {
                 pos = String.valueOf(player.getCurrentPosition());
-                handler.postDelayed(this, 2000); //2000ms frequency of updates.
+                handler.postDelayed(this, 1000); //2000ms frequency of updates.
                 //saveData(); //saves position and duration in SharedPreferences("info")
 
                 if(!stillPlaying) {
+                    saveData(); //saves position and duration in SharedPreferences("info")
                     player.stop();
                     player.release();
-                    saveData(); //saves position and duration in SharedPreferences("info")
                     stillPlaying = true;
                 }
                 if(homePressed == true){
+                    saveData(); //saves position and duration in SharedPreferences("info")
                     player.pause();
                 }
             }
-        }, 2000);
+        }, 1000);
+
+        final Handler handlerPosition = new Handler();
+        handlerPosition.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                handler.postDelayed(this, 5000); //2000ms frequency of updates.
+                saveData(); //saves position and duration in SharedPreferences("info")
+            }
+        }, 5000);
     }
 
     @Override
@@ -189,6 +201,6 @@ public class PlayerActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(/*POSITION*/series+episode+"position", pos);
         editor.putString(DURATION, maxDur);
-        editor.commit();
+        editor.apply();
     }
 }
