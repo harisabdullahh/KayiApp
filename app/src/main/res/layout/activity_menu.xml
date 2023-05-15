@@ -74,7 +74,7 @@
 
             </androidx.cardview.widget.CardView>
 
-            <!-- Ertugrul Card-->
+            <!-- Abdul Hamid Card-->
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/AbdulHamidCard"
@@ -193,10 +193,11 @@
         android:id="@+id/testBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
         android:background="@drawable/download_icon"
-        android:foreground="?android:attr/selectableItemBackground" />
+        android:foreground="?android:attr/selectableItemBackground"
+        android:contentDescription="Download APK" />
 
 </RelativeLayout>

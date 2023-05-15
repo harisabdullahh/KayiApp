@@ -2,8 +2,6 @@ package com.example.kayiapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.session.MediaController;
-import android.media.session.MediaSession;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,7 +21,6 @@ public class PlayerActivity extends AppCompatActivity {
 
     public static final String
             SHARED_PREFS = "info",
-            POSITION = "position",
             DURATION = "MaxDuration";
     String
             pos,
@@ -39,9 +36,6 @@ public class PlayerActivity extends AppCompatActivity {
 
     private View decorView;
 
-    private MediaSession mMediaSession;
-    private MediaController mMediaController;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,12 +44,9 @@ public class PlayerActivity extends AppCompatActivity {
         playerView = (StyledPlayerView) findViewById(R.id.playerView2);
 
         decorView = getWindow().getDecorView();
-        decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
-            @Override
-            public void onSystemUiVisibilityChange(int i) {
-                if (i==0){
-                    decorView.setSystemUiVisibility(hideSystemBars());
-                }
+        decorView.setOnSystemUiVisibilityChangeListener(i -> {
+            if (i==0){
+                decorView.setSystemUiVisibility(hideSystemBars());
             }
         });
     }
@@ -103,8 +94,6 @@ public class PlayerActivity extends AppCompatActivity {
         episode = s1;
         series = s2;
 
-        int dur = Integer.valueOf(sh.getString("duration", "100"));
-
         //initialize Player then send url and position of episode to player
         initializePlayer(url, positionEpisode, quality);
     }
@@ -146,11 +135,6 @@ public class PlayerActivity extends AppCompatActivity {
                         if (isPlaying) {
                             // Active playback.
                             maxDur = String.valueOf(player.getContentDuration());
-                        } else {
-                            // Not playing because playback is paused, ended, suppressed, or the player
-                            // is buffering, stopped or failed. Check player.getPlayWhenReady,
-                            // player.getPlaybackState, player.getPlaybackSuppressionReason and
-                            // player.getPlaybackError for details.
                         }
                     }
                 });
@@ -160,32 +144,25 @@ public class PlayerActivity extends AppCompatActivity {
             @Override
             public void run() {
                 pos = String.valueOf(player.getCurrentPosition());
-                handler.postDelayed(this, 1000); //2000ms frequency of updates.
-                //saveData(); //saves position and duration in SharedPreferences("info")
+                handler.postDelayed(this, 2000); //1200ms frequency of updates.
 
                 if(!stillPlaying) {
                     saveData(); //saves position and duration in SharedPreferences("info")
                     player.stop();
                     player.release();
                     stillPlaying = true;
+                    handler.removeCallbacks(this);
                 }
-                if(homePressed == true){
+                if(homePressed){
                     saveData(); //saves position and duration in SharedPreferences("info")
-                    player.pause();
+                    player.stop();
+                    player.release();
+                    homePressed = false;
+                    handler.removeCallbacks(this);
                 }
             }
-        }, 1000);
-
-        final Handler handlerPosition = new Handler();
-        handlerPosition.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                handler.postDelayed(this, 5000); //2000ms frequency of updates.
-                saveData(); //saves position and duration in SharedPreferences("info")
-            }
-        }, 5000);
+        }, 2000);
     }
-
     @Override
     public void onBackPressed() {
         setResult(RESULT_CANCELED);
@@ -195,11 +172,10 @@ public class PlayerActivity extends AppCompatActivity {
         startActivity(i);
         finish();
     }
-
     public void saveData(){
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(/*POSITION*/series+episode+"position", pos);
+        editor.putString(series+episode+"position", pos);
         editor.putString(DURATION, maxDur);
         editor.apply();
     }

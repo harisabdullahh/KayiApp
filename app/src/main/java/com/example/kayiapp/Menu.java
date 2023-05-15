@@ -57,13 +57,10 @@ public class Menu extends AppCompatActivity {
             OSMAN = "2",
             ABDULHAMID = "3",
             QUALITY = "Quality";
-    public boolean active;
-
     String
             episodeNumber,
             seriesName,
             minDuration;
-
     int
             ep = 0,
             episodeLeft = 0;
@@ -106,7 +103,7 @@ public class Menu extends AppCompatActivity {
 
             //set progress of current Episode setProgress(int dur, int pos)
             setProgress(dur, pos);
-        }, 1200);
+        }, 2000);
 
 
         //set Image & Title of Episode
@@ -133,7 +130,12 @@ public class Menu extends AppCompatActivity {
 
                 //CallPlayer(url,"Episode "+epNum, epNum);
 
-                float scale = getResources().getDisplayMetrics().density;
+
+                Intent intent = new Intent(getApplicationContext(), PlayerActivity.class);
+                startActivity(intent);
+                finish();
+
+                /*float scale = getResources().getDisplayMetrics().density;
                 int widthInDp = 150;
                 int widthInPixels = (int) (widthInDp * scale + 0.5f);
                 relativeDescription.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -183,7 +185,7 @@ public class Menu extends AppCompatActivity {
                     ((LinearLayout.LayoutParams) relativeDescription.getLayoutParams()).setMargins(15, 0, 0, 0);
                     pBar2.setLayoutParams(new LinearLayout.LayoutParams(150, ViewGroup.LayoutParams.WRAP_CONTENT));
                     image1.setLayoutParams(new FrameLayout.LayoutParams(widthInPixels, FrameLayout.LayoutParams.WRAP_CONTENT));
-                });
+                });*/
             });
         }
         ertugrulCard.setOnClickListener(view -> {
@@ -199,7 +201,6 @@ public class Menu extends AppCompatActivity {
             startActivity(intent);
         });
     }
-
     void downloadFile(Uri uri) {
         DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
         DownloadManager.Request request = new DownloadManager.Request(uri);
@@ -209,24 +210,6 @@ public class Menu extends AppCompatActivity {
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         downloadManager.enqueue(request);
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        active = true;
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        active = false;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
     void setProgress(int dur, int pos) {
         ProgressBar pBar;
         pBar = (ProgressBar) findViewById(R.id.epProgress);
@@ -244,14 +227,17 @@ public class Menu extends AppCompatActivity {
             SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
-            if (seriesName.equals(ERTUGRUL))
-                editor.putString(LINK, MainActivity2.episodeLink[ep - 1]);
-
-            else if (seriesName.equals(OSMAN))
-                editor.putString(LINK, MainActivity.episodeLink[ep - 1]);
-
-            else if (seriesName.equals(ABDULHAMID))
-                editor.putString(LINK, MainActivity3.episodeLink[ep - 1]);
+            switch (seriesName) {
+                case ERTUGRUL:
+                    editor.putString(LINK, MainActivity2.episodeLink[ep - 1]);
+                    break;
+                case OSMAN:
+                    editor.putString(LINK, MainActivity.episodeLink[ep - 1]);
+                    break;
+                case ABDULHAMID:
+                    editor.putString(LINK, MainActivity3.episodeLink[ep - 1]);
+                    break;
+            }
 
             editor.putString(EPISODE, String.valueOf(ep));
             editor.apply();
@@ -262,9 +248,15 @@ public class Menu extends AppCompatActivity {
             @SuppressLint("WrongConstant")
             SharedPreferences sh = getSharedPreferences(SHARED_PREFS, MODE_APPEND);
 
-            pBar.setMax(Integer.parseInt(sh.getString(DURATION, minDuration)));
-            pBar.setProgress(Integer.parseInt(sh.getString(seriesName + ep + POSITION, "0")));
+            String max = sh.getString(DURATION, minDuration);
+            String progress = sh.getString(seriesName + ep + POSITION, "0");
 
+            if (max != "null" && progress != "null") {
+                int maxInt = Integer.parseInt(max);
+                int progressInt = Integer.parseInt(progress);
+                pBar.setMax(maxInt);
+                pBar.setProgress(progressInt);
+            }
 
         }
     }

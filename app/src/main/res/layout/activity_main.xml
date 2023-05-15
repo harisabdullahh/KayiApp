@@ -139,7 +139,7 @@
                 <ListView
                     android:id="@+id/customListView"
                     android:layout_width="match_parent"
-                    android:layout_height="15100dp"
+                    android:layout_height="15000dp"
                     android:descendantFocusability="blocksDescendants"/>
 
             </RelativeLayout>

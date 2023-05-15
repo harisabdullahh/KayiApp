@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,21 +10,23 @@
     <com.emilsjolander.components.StickyScrollViewItems.StickyScrollView
         android:id="@+id/mainLinear"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/black"
             android:orientation="vertical">
-
 
             <!--Introduction Start-->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
@@ -51,8 +53,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:background="#E6000000"
+                android:orientation="vertical"
                 android:tag="sticky">
 
                 <TextView
@@ -129,7 +131,6 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-
             <!--Scrollable Episode List Start-->
 
             <RelativeLayout
@@ -140,17 +141,15 @@
                 <ListView
                     android:id="@+id/customListView2"
                     android:layout_width="match_parent"
-                    android:layout_height="18250dp"
-                    android:descendantFocusability="blocksDescendants"/>
+                    android:layout_height="18145dp"
+                    android:descendantFocusability="blocksDescendants" />
 
             </RelativeLayout>
 
-
             <!--Scrollable Episode List End-->
-
 
         </LinearLayout>
 
     </com.emilsjolander.components.StickyScrollViewItems.StickyScrollView>
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

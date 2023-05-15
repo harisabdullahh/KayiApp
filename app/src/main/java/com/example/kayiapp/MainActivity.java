@@ -314,7 +314,16 @@ public class MainActivity extends AppCompatActivity {
 
             int epNum = i+1;
 
-            PopupMenu popup = new PopupMenu(MainActivity.this, view);
+
+            editor.putString("Episode", String.valueOf(epNum));
+            editor.putString("Image", "2");                     //Osman
+            editor.putString("Link", episodeLink[i]);
+            editor.apply();
+            finish();
+            Intent intent2 = new Intent(getApplicationContext(), PlayerActivity.class);
+            startActivity(intent2);
+
+            /*PopupMenu popup = new PopupMenu(MainActivity.this, view);
             popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
 
             popup.setOnMenuItemClickListener(item -> {
@@ -325,7 +334,7 @@ public class MainActivity extends AppCompatActivity {
                         editor.putString("Episode", String.valueOf(epNum));
                         editor.putString("Image", "2");                     //Osman
                         editor.putString("Link", episodeLink[i]);
-                        editor.commit();
+                        editor.apply();
                         menuObj.active = true;
 
                         //exit this activity and go to player
@@ -338,7 +347,7 @@ public class MainActivity extends AppCompatActivity {
                         editor.putString("Episode", String.valueOf(epNum));
                         editor.putString("Image", "2");                     //Osman
                         editor.putString("Link", episodeLink[i]);
-                        editor.commit();
+                        editor.apply();
                         menuObj.active = true;
 
                         //exit this activity and go to player
@@ -351,7 +360,7 @@ public class MainActivity extends AppCompatActivity {
                         editor.putString("Episode", String.valueOf(epNum));
                         editor.putString("Image", "2");                     //Osman
                         editor.putString("Link", episodeLink[i]);
-                        editor.commit();
+                        editor.apply();
                         menuObj.active = true;
 
                         //exit this activity and go to player
@@ -364,7 +373,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
             // show menu
-            popup.show();
+            popup.show();*/
         });
         //updateEpisodeProgress();
 

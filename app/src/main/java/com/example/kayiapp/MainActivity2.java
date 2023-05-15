@@ -372,7 +372,15 @@ public class MainActivity2 extends AppCompatActivity {
                 SharedPreferences sharedPreferences = getSharedPreferences("info", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                PopupMenu popup = new PopupMenu(MainActivity2.this, view);
+                editor.putString("Episode", String.valueOf(epNum));
+                editor.putString("Image", "1");                     //Ertugrul
+                editor.putString("Link", episodeLink[i]);
+                editor.apply();
+                finish();
+                Intent intent2 = new Intent(getApplicationContext(), PlayerActivity.class);
+                startActivity(intent2);
+
+                /*PopupMenu popup = new PopupMenu(MainActivity2.this, view);
                 popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
 
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -422,7 +430,7 @@ public class MainActivity2 extends AppCompatActivity {
                     }
                 });
                 // show menu
-                popup.show();
+                popup.show();*/
             }
         });
         //updateEpisodeProgress();

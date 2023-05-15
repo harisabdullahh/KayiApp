@@ -37,7 +37,15 @@ public class MainActivity3 extends AppCompatActivity {
 
             int epNum = i + 1;
 
-            PopupMenu popup = new PopupMenu(MainActivity3.this, view);
+            editor.putString(Menu.EPISODE, String.valueOf(epNum));
+            editor.putString(Menu.IMAGE, "3");                     //Abdul Hamid
+            editor.putString(Menu.LINK, episodeLink[i]);
+            editor.apply();
+            finish();
+            Intent intent2 = new Intent(getApplicationContext(), PlayerActivity.class);
+            startActivity(intent2);
+
+            /*PopupMenu popup = new PopupMenu(MainActivity3.this, view);
             popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
 
             popup.setOnMenuItemClickListener(item -> {
@@ -87,7 +95,7 @@ public class MainActivity3 extends AppCompatActivity {
                 }
             });
             // show menu
-            popup.show();
+            popup.show();*/
         });
         //updateEpisodeProgress();
 
