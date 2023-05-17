@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:background="@color/black"
-    tools:context=".PlayerActivity">
+    tools:context=".PlayerActivity"
+    android:animateLayoutChanges="true">
 
     <com.google.android.exoplayer2.ui.StyledPlayerView
         android:id="@+id/playerView2"
@@ -16,8 +17,29 @@
         app:scrubber_color="#FF0000"
         app:buffered_color="#FF0000"
         app:played_color="#FF0000"
+        app:controller_layout_id="@layout/custom_exoplayer_control"
         app:show_buffering="when_playing"
         app:show_shuffle_button="false"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/nextButton"
+        android:layout_width="85dp"
+        android:layout_height="40dp"
+        app:cardCornerRadius="4dp"
+        android:layout_margin="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/white"
+        android:clickable="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:layout_gravity="center"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:textColor="@color/grey"/>
+    </androidx.cardview.widget.CardView>
 
 
 </RelativeLayout>

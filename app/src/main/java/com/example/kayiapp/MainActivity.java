@@ -2,6 +2,11 @@ package com.example.kayiapp;
 
 import static android.provider.CalendarContract.CalendarCache.URI;
 
+import static com.example.kayiapp.Menu.EPISODE;
+import static com.example.kayiapp.Menu.IMAGE;
+import static com.example.kayiapp.Menu.LINK;
+import static com.example.kayiapp.Menu.SHARED_PREFS;
+import static com.example.kayiapp.Menu.WEB_URL;
 import static java.lang.Integer.parseInt;
 
 import androidx.annotation.IdRes;
@@ -309,15 +314,15 @@ public class MainActivity extends AppCompatActivity {
 
         listView.setOnItemClickListener((adapterView, view, i, l) -> {
 
-            SharedPreferences sharedPreferences = getSharedPreferences("info", MODE_PRIVATE);
+            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
             int epNum = i+1;
 
 
-            editor.putString("Episode", String.valueOf(epNum));
-            editor.putString("Image", "2");                     //Osman
-            editor.putString("Link", episodeLink[i]);
+            editor.putString(EPISODE, String.valueOf(epNum));
+            editor.putString(IMAGE, "2");                     //Osman
+            editor.putString(LINK, episodeLink[i]);
             editor.apply();
             finish();
             Intent intent2 = new Intent(getApplicationContext(), PlayerActivity.class);
@@ -390,11 +395,11 @@ public class MainActivity extends AppCompatActivity {
 
     void CallPlayer(String url, String epName, int episodeNumber) {
 
-        SharedPreferences info = getSharedPreferences("info", MODE_PRIVATE);
+        SharedPreferences info = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor myEdit = info.edit();
-        myEdit.putString("Episode", Integer.toString(episodeNumber));
-        myEdit.putString("Image", "2");
-        myEdit.putString("Link",url);
+        myEdit.putString(EPISODE, Integer.toString(episodeNumber));
+        myEdit.putString(IMAGE, "2");
+        myEdit.putString(LINK,url);
         myEdit.commit();
 
         title = epName;
@@ -402,7 +407,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setPackage("com.mxtech.videoplayer.ad");
         intent.setClassName("com.mxtech.videoplayer.ad", "com.mxtech.videoplayer.ad.ActivityScreen");
-        Uri videoUri = Uri.parse("https://maher.xtremestream.co/player/load_m3u8_xtremestream.php?data=" + url /*+ "&q=" + quality*/);
+        Uri videoUri = Uri.parse(WEB_URL + url /*+ "&q=" + quality*/);
         intent.setDataAndType(videoUri, "application/x-mpegURL");
         //application/x-mpegURL
         intent.setPackage("com.mxtech.videoplayer.ad"); // com.mxtech.videoplayer.pro

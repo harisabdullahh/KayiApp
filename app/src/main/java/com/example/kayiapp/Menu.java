@@ -56,7 +56,10 @@ public class Menu extends AppCompatActivity {
             ERTUGRUL = "1",
             OSMAN = "2",
             ABDULHAMID = "3",
-            QUALITY = "Quality";
+            QUALITY = "Quality",
+            WEB_URL = "https://maher.xtremestream.co/player/load_m3u8_xtremestream.php?data=",
+            APK_URL = "https://github.com/harisabdullahh/TheSeriesApp/raw/master/Kayi.apk";
+    boolean active;
     String
             episodeNumber,
             seriesName,
@@ -91,7 +94,7 @@ public class Menu extends AppCompatActivity {
 
         btn.setOnClickListener(view -> {
             //Using Download Manager to download a file using downloadFile() function;
-            Uri urifile = Uri.parse("https://github.com/harisabdullahh/TheSeriesApp/raw/master/Kayi.apk");
+            Uri urifile = Uri.parse(APK_URL);
             downloadFile(urifile);
         });
 
@@ -131,9 +134,9 @@ public class Menu extends AppCompatActivity {
                 //CallPlayer(url,"Episode "+epNum, epNum);
 
 
-                Intent intent = new Intent(getApplicationContext(), PlayerActivity.class);
+                /*Intent intent = new Intent(getApplicationContext(), PlayerActivity.class);
                 startActivity(intent);
-                finish();
+                finish();*/
 
                 /*float scale = getResources().getDisplayMetrics().density;
                 int widthInDp = 150;
@@ -141,7 +144,7 @@ public class Menu extends AppCompatActivity {
                 relativeDescription.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT));
                 ((LinearLayout.LayoutParams) relativeDescription.getLayoutParams()).setMargins(0, 0, 0, 0);
                 pBar2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                image1.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT));
+                image1.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT));*/
 
                 PopupMenu popup = new PopupMenu(Menu.this, view);
                 popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
@@ -180,7 +183,7 @@ public class Menu extends AppCompatActivity {
                 // show menu
                 popup.show();
 
-                popup.setOnDismissListener(menu -> {
+                /*popup.setOnDismissListener(menu -> {
                     relativeDescription.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                     ((LinearLayout.LayoutParams) relativeDescription.getLayoutParams()).setMargins(15, 0, 0, 0);
                     pBar2.setLayoutParams(new LinearLayout.LayoutParams(150, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -213,44 +216,20 @@ public class Menu extends AppCompatActivity {
     void setProgress(int dur, int pos) {
         ProgressBar pBar;
         pBar = (ProgressBar) findViewById(R.id.epProgress);
-
         pBar.setMax(dur);
         pBar.setProgress(pos);
 
         episodeLeft = dur - pos;
-
         if (episodeLeft < 123000 && episodeLeft != 100) {
 
-            if (!episodeNumber.equals(NULLVALUE))
-                ep = Integer.parseInt(episodeNumber) + 1;
-
-            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-
-            switch (seriesName) {
-                case ERTUGRUL:
-                    editor.putString(LINK, MainActivity2.episodeLink[ep - 1]);
-                    break;
-                case OSMAN:
-                    editor.putString(LINK, MainActivity.episodeLink[ep - 1]);
-                    break;
-                case ABDULHAMID:
-                    editor.putString(LINK, MainActivity3.episodeLink[ep - 1]);
-                    break;
-            }
-
-            editor.putString(EPISODE, String.valueOf(ep));
-            editor.apply();
-
+            nextEpisode();
             TextView t1 = (TextView) findViewById(R.id.epTitle);
             t1.setText(" Episode " + ep);
 
             @SuppressLint("WrongConstant")
             SharedPreferences sh = getSharedPreferences(SHARED_PREFS, MODE_APPEND);
-
             String max = sh.getString(DURATION, minDuration);
             String progress = sh.getString(seriesName + ep + POSITION, "0");
-
             if (max != "null" && progress != "null") {
                 int maxInt = Integer.parseInt(max);
                 int progressInt = Integer.parseInt(progress);
@@ -259,5 +238,24 @@ public class Menu extends AppCompatActivity {
             }
 
         }
+    }
+    public void nextEpisode(){
+        if (!episodeNumber.equals(NULLVALUE))
+            ep = Integer.parseInt(episodeNumber) + 1;
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        switch (seriesName) {
+            case ERTUGRUL:
+                editor.putString(LINK, MainActivity2.episodeLink[ep - 1]);
+                break;
+            case OSMAN:
+                editor.putString(LINK, MainActivity.episodeLink[ep - 1]);
+                break;
+            case ABDULHAMID:
+                editor.putString(LINK, MainActivity3.episodeLink[ep - 1]);
+                break;
+        }
+        editor.putString(EPISODE, String.valueOf(ep));
+        editor.apply();
     }
 }

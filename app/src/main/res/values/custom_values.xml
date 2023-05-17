@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="custom_playpause">
+        <item name="android:src">@drawable/custom_exo_styled_controls_play</item>
+        <item name="android:contentDescription">@string/exo_controls_play_description</item>
+        <item name="android:padding">@dimen/exo_icon_padding</item>
+    </style>
+    <drawable name="custom_exo_styled_controls_pause">@drawable/exo_icon_pause</drawable>
+    <drawable name="custom_exo_styled_controls_play">@drawable/exo_icon_play</drawable>
+</resources>

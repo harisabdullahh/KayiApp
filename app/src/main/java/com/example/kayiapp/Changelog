@@ -8,3 +8,7 @@ Changelog:
     1. Implemented cardView of shows instead of textButtons
     2. Implemented exoplayer pausing when back button is pressed
     3. Implemented saving of exoplayer position every 2 seconds
+
+17/05/2023 (v2.1.2):
+    1. Added Back button in Player Layout
+    2. Code cleaning
